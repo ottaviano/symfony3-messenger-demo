@@ -1,3 +1,7 @@
+parameters:
+    my_super_bus.middleware:
+        - { id: handle_message }
+
 services:
     _defaults:
         autoconfigure: true
@@ -9,5 +13,10 @@ services:
         class: Symfony\Component\Messenger\MessageBus
         tags: ['messenger.bus']
         arguments: [[]]
-        
+
     Symfony\Component\Messenger\MessageBusInterface: '@my_super_bus'
+
+    messenger.middleware.handle_message:
+        class: Symfony\Component\Messenger\Middleware\HandleMessageMiddleware
+        abstract: true
+        arguments: [[], true]
