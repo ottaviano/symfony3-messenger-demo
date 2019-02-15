@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+        public: false
+
+    # Message Bus with it alias
+    my_super_bus:
+        class: Symfony\Component\Messenger\MessageBus
+        tags: ['messenger.bus']
+        arguments: [[]]
+        
+    Symfony\Component\Messenger\MessageBusInterface: '@my_super_bus'
