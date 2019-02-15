@@ -14,3 +14,7 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    App\Post\Handler\GetPostHandler:
+        tags:
+            - { name: messenger.message_handler, bus: my_super_bus }
