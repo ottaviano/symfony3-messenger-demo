@@ -18,3 +18,7 @@ services:
     App\Post\Handler\GetPostHandler:
         tags:
             - { name: messenger.message_handler, bus: my_super_bus }
+
+    App\SayHello\Handler\SayHelloHandler:
+        tags:
+            - { name: messenger.message_handler, bus: my_super_bus }
