@@ -35,3 +35,10 @@ services:
         arguments:
             $dsn: '%env(RABBITMQ_DSN)%'
             $options: []
+
+    messenger.transport.senders_locator:
+        class: Symfony\Component\Messenger\Transport\Sender\SendersLocator
+        arguments:
+            $senders:
+                App\SayHello\Command\SayHelloCommand:
+                    my_sender_alias: '@messenger.transport.amqp'
