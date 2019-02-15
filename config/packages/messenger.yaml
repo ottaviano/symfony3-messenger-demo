@@ -1,4 +1,5 @@
 parameters:
+    env(RABBITMQ_DSN): 'amqp://guest:guest@192.168.99.100:5672/%2f'
     my_super_bus.middleware:
         - { id: handle_message }
 
@@ -20,3 +21,17 @@ services:
         class: Symfony\Component\Messenger\Middleware\HandleMessageMiddleware
         abstract: true
         arguments: [[], true]
+
+    # Transport Factory - AMQP transport
+    Symfony\Component\Messenger\Transport\AmqpExt\AmqpTransportFactory:
+        tags: [messenger.transport_factory]
+        arguments:
+            $debug: '%kernel.debug%'
+
+    # Transport
+    messenger.transport.amqp:
+        class: Symfony\Component\Messenger\Transport\TransportInterface
+        factory: 'Symfony\Component\Messenger\Transport\AmqpExt\AmqpTransportFactory:createTransport'
+        arguments:
+            $dsn: '%env(RABBITMQ_DSN)%'
+            $options: []
