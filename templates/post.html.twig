@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <ul>
+        {% for key, post in posts %}
+            <li>#{{ key + 1 }} | {{ post.title }} ({{ post.date|date('d/m/y') }})</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
