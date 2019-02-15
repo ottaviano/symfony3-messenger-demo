@@ -37,6 +37,8 @@ services:
     messenger.transport.amqp:
         class: Symfony\Component\Messenger\Transport\TransportInterface
         factory: 'Symfony\Component\Messenger\Transport\AmqpExt\AmqpTransportFactory:createTransport'
+        tags:
+            - { name: messenger.receiver, alias: my_receiver_alias }
         arguments:
             $dsn: '%env(RABBITMQ_DSN)%'
             $options: []
@@ -47,3 +49,17 @@ services:
             $senders:
                 App\SayHello\Command\SayHelloCommand:
                     my_sender_alias: '@messenger.transport.amqp'
+
+    messenger.receiver_locator:
+        tags: [container.service_locator]
+        arguments: [[]]
+
+    # Receiver command
+    console.command.messenger_consume_messages:
+        class: Symfony\Component\Messenger\Command\ConsumeMessagesCommand
+        arguments:
+            -
+            - '@messenger.receiver_locator'
+            - '@Psr\Log\LoggerInterface'
+            - []
+            - []
