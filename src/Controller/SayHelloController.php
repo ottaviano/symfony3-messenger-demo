@@ -24,6 +24,6 @@ class SayHelloController extends AbstractController
             )
         );
 
-        return new Response();
+        return $this->render('base.html.twig');
     }
 }

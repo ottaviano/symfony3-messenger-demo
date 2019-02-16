@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    data_collector.messenger:
+        class: Symfony\Component\Messenger\DataCollector\MessengerDataCollector
+        tags:
+            -
+                {
+                    name: data_collector,
+                    id: messenger,
+                    template: profiler/messenger.html.twig
+                }
