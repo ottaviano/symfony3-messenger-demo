@@ -63,3 +63,9 @@ services:
             - '@Psr\Log\LoggerInterface'
             - []
             - []
+
+    # Message Serializer with it alias
+    Symfony\Component\Messenger\Transport\Serialization\Serializer:
+        arguments:
+            $serializer: '@Symfony\Component\Serializer\SerializerInterface'
+    Symfony\Component\Messenger\Transport\Serialization\SerializerInterface: '@Symfony\Component\Messenger\Transport\Serialization\Serializer'
